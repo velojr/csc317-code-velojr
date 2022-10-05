@@ -1,0 +1,49 @@
+body {
+  background-image: url(https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/e1c27f25-f330-4b3c-a421-788732d590b4/d1sgkhn-c9f4b603-0ab9-4333-a2fc-628d488dc1f5.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcL2UxYzI3ZjI1LWYzMzAtNGIzYy1hNDIxLTc4ODczMmQ1OTBiNFwvZDFzZ2tobi1jOWY0YjYwMy0wYWI5LTQzMzMtYTJmYy02MjhkNDg4ZGMxZjUuanBnIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.6gNLLKiXqKyrJGvbVDYtCRT_z_XGNvtQsbhvtYuv-a0);
+  padding: 20px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  text-align: center;
+}
+
+a {
+  border : 3px solid black;
+  background-position: center;
+  background-color: white;
+  color: black;
+  padding: 8px 24px;
+  font: 14px "OCR", OCR a Std, monospace;
+  cursor: pointer;
+}
+
+h1 {
+
+  border: 2px solid black;
+  color: white;
+  text-align: center;
+}
+
+h2 {
+  font: 30px "Stencil", Stencil Std, fantasy;
+  color: white;
+  text-align: center;
+}
+
+footer {
+  position: absolute;
+  bottom: 0;
+  width: 90%;
+  color: white;
+
+}
+
+p {
+
+  position: center;
+  font-size: 14px;
+  color: white;
+}
+
+label {
+  font-size: x-large;
+  color: white;
+}
