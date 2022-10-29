@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+   <script defer src="../js/validation.js"></script>
     <meta charset="UTF-8">
     <title>Title</title>
     <link rel = "stylesheet" href="../css/style.css">
+
 </head>
 
 <body>
@@ -24,33 +26,46 @@
 &nbsp;
 <form>
     <div class="Registration">
-        <label>Enter a Username: </label>
-        <label>
-            <input type="text" placeholder="Enter Username" name="username" required>
-        </label>
-        <br>
-        <label>Enter an Email: </label>
-        <label>
-            <input type="text" placeholder="Enter Email" name="Email" required>
-        </label>
-<br>
-        <label>Enter a Password: </label>
-        <label>
-            <input type="password" placeholder="Enter Password" name="password" required>
-        </label>
-<br>
-        <label>Confirm Password: </label>
-        <input type="password" placeholder="Confirm Password" name="confirmation" required>
-        </label>
-<br>
-        &nbsp;
+        <form id="Registration" class="form">
+            <div class="form-field">
+                <label for="username">Username:</label>
+                <input type="text" name="username" id="username" autocomplete="off">
+                <small></small>
+            </div>
 
-        <p>By creating an account you agree that you are age 13+</p>
+            <div class="form-field">
+                <label for="email">Email:</label>
+                <input type="text" name="email" id="email" autocomplete="off">
+                <small></small>
+            </div>
+
+            <div class="form-field">
+                <label for="password">Password:</label>
+                <input type="password" name="password" id="password" autocomplete="off">
+                <small></small>
+            </div>
+
+
+            <div class="form-field">
+                <label for="confirm-password">Confirm Password:</label>
+                <input type="password" name="confirm-password" id="confirm-password" autocomplete="off">
+                <small></small>
+            </div>
+
+        </form>
+    </div>
+
+    &nbsp;
+
+        <p>By creating an account you agree that you are age 13+ <label>
+            <input type="checkbox">
+        </label> </p>
+
 
         <p>Accept our  <a href="">TOS and Privacy Rules</a>.</p>
-        <button type="submit">Register/Submit</button>
+        <button type="button">Register/Submit</button>
 
-    </div>
+
 
 </form>
 <footer>
