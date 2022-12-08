@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <script defer src="../js/validation.js"></script>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel = "stylesheet" href="../css/style.css">
+
+</head>
+
+<body>
+
+<h1>317 Website</h1>
+<h2>Registration</h2>
+
+<nav>
+
+
+    <a href="index.hbs">Index</a>
+    <a href="login.hbs">Login</a>
+    <a href="registration.hbs">Registration</a>
+    <a href="postimage.hbs">Post Image</a>
+    <a href="viewpost.hbs">View Post</a>
+
+</nav>
+&nbsp;
+<form class = "borders" id="field" onsubmit="return (validation());"method = "POST"
+      action = "/users/register"
+      enctype = "application/x-www-form-urlencoded">
+
+    <ol><label for = "username">Username</label></ol>
+    <ol><input type = "text" name = "username"
+    id="username" placeholder="username"></ol>
+
+    <ol><label for = "email">Username</label></ol>
+    <ol><input type = "email" name = "email"
+               id="email" placeholder="email"></ol>
+
+    <ol><label for = "password">Username</label></ol>
+    <ol><input type = "password" name = "password"
+               id="password" placeholder="password"></ol>
+
+    <ol><label for = "confirm password">Username</label></ol>
+    <ol><input type = "password" name = "confirm password"
+               id="confirm password" placeholder="confirm password"></ol>
+    &nbsp;
+
+        <p>By creating an account you agree that you are age 13+ <label>
+            <input type="checkbox">
+        </label> </p>
+
+
+        <p>Accept our  <a href="">TOS and Privacy Rules</a>.</p>
+        <button type="button">Register/Submit</button>
+
+
+
+</form>
+<footer>
+    <p>Author: Juan Segura Rico - SF State</p>
+</footer>
+</body>
+</html>
