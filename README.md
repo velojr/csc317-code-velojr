@@ -19,9 +19,8 @@ Please follow the instructions below and fill in the information requested when 
 # Build/Run Instructions
 
 ## Build Instructions
-1. steps here
-2. steps here
+1. npm install
 
 ## Run Instructions
-1. couldn't get the my code to run and its disappointing because of the amount of times I tried to fix it... I hope I can still get a passing grade
+1. npm start (couldn't get the my code to run and its disappointing because of the amount of times I tried to fix it... hopefully I can still get a passing grade)
 2. maybe it will run properly on professors end? 
