@@ -1,61 +1,100 @@
-var db = require('../conf/database');
-const UserModel = {};
-var bcrypt = require('bcrypt');
-const e = require('express');
+var express = require('express');
+var router = express.Router();
+const bcrypt = require('bcrypt');
+const UserError = require ('../helpers/error/UserError');
+const db = require('../conf/database');
 
-UserModel.create = (username, password, email) => {
-    return bcrypt.hash(password, 10)
-        .then((hashedPassword) => {
-            let baseSQL = "INSERT INTO users(`username`,`email`,`password`,`created`) VALUES (?,?,?,now());"
-            return db.execute(baseSQL, [username, email, hashedPassword])
-        })
-        .then(([results, fields]) => {
-            if(results && results.affectedRows){
-                return Promise.resolve(results.insertId);
+router.get('/', function(req, res, next) {
+    res.send('respond with a resource');
+});
+router.post("/register",function(req, res, next) {
+    const {username, email, password} = req.body;
+
+    db.query('select id from users where username=?', [username])
+
+        .then(function([results, fields]) {
+            if (results && results.length == 0) {
+                return db.query('select id from users where email=?', [email])
             } else {
-                return Promise.resolve(-1);
+                req.flash("error",'username already exists');
             }
         })
-        .catch((err) => Promise.reject(err));
-}
 
-UserModel.usernameExists = (username) => {
-    return db.execute("SELECT * FROM users WHERE username=?",[username])
-        .then(([results, fields]) => {
-            return Promise.resolve(!(results && results.length == 0));
-        })
-        .catch((err) => Promise.reject(err));
-}
-
-UserModel.emailExists = (email) => {
-    return db.execute("SELECT * FROM users WHERE email=?",[email])
-        .then(([results, fields]) => {
-            return Promise.resolve(!(results && results.length == 0));
-        })
-        .catch((err) => Promise.reject(err));
-}
-
-UserModel.aunthenticate = (username, password) => {
-    let userId;
-    let baseSQL = "SELECT id, username, password FROM users WHERE username=?;"
-    return db
-        .execute(baseSQL, [username])
-        .then(([results, fields]) => {
-            if(results && results.length == 1) {
-                userId = results[0].id;
-                return bcrypt.compare(password, results[0].password);
+        .then (function([results, fields]) {
+            if (results && results.length == 0) {
+                return bcrypt.hash(password, 2);
             } else {
-                return Promise.reject(-1)
+                req.flash("error",'email already exists');
+            }
+        }).then(function(hashedPassword){return db.execute ('insert into users (username, email, password) value (?, ?, ?)', [username, email, hashedPassword])})
+
+        .then(function([results, fields]) {
+            if (results && results.affectedRows == 1) {
+                res.redirect('/login');
+            } else {
+                throw new Error ('user could not be made');
             }
         })
-        .then((passwordsMatch) => {
-            if(passwordsMatch) {
-                return Promise.resolve(userId);
-            } else {
-                return Promise.resolve(-1);
+
+        .catch(function(err) {
+            res.redirect('/register');
+            next(err);
+        });
+
+});
+
+router.post("/login", function(req, res, next) {
+    const {username, password} = req.body;
+
+    let loggedUserId;
+    let loggedUsername;
+
+    db.query('select id, username, password from users where username=?', [username])
+        .then(function([results, fields]){
+            if (results && results.length == 1) {
+                loggedUserId = results[0].id;
+                loggedUsername = results[0].username;
+                let dbPassword = results[0].password;
+                return bcrypt.compare(password, dbPassword);
+            }else {
+                req.flash("error",'Failed Login: Invalid User Credentials');
+                res.redirect('/404error');
             }
         })
-        .catch((err) => Promise.reject(err));
-};
+        .then(function(passwordsMatched){
+            if(passwordsMatched){
+                req.session.userId = loggedUserId;
+                req.session.username = loggedUsername;
+                req.flash("success",`Hi ${loggedUsername}, you are now logged in.`);
+                res.redirect('/');
+            } else {
+                req.flash("error", `Error: Incorrect Username or Password.`);
+                res.redirect('/login');
+            }
+        })
 
-module.exports = UserModel;
+        .catch(function(err) {
+            if (err instanceof UserError) {
+                req.flash("error", err.getMessage())
+                req.session.save(function(saveErr){
+                    res.redirect('/404error');
+                })
+            }
+            next(err);
+        })
+});
+
+router.post("/logout", function(req, res) {
+    req.session.destroy(function(destroyError){
+        if (destroyError) {
+            next (err);
+        } else {
+            res.json({
+                status: 200,
+                message: "You have been logged out"
+            });
+        }
+    })
+})
+
+module.exports = router;
