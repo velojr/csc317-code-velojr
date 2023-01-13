@@ -23,4 +23,4 @@ Please follow the instructions below and fill in the information requested when 
 
 ## Run Instructions
 1. npm start (couldn't get the my code to run and its disappointing because of the amount of times I tried to fix it... hopefully I can still get a passing grade)
-2. maybe it will run properly on professors end? 
+
